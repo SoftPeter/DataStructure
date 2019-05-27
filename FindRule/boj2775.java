@@ -4,17 +4,24 @@ import java.util.*;
 
 public class boj2775 {
 	public static void main(String[] args) {
-		int day[] = {31,28,31,30,31,30,31,31,30,31,30,31};
-		String Day_Week[] = {"MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"};
 		Scanner sc = new Scanner(System.in);
-		int m = sc.nextInt();
-		int d = sc.nextInt();
-		int tm = 0;
-		for(int i=0; i<m-1; i++) {
-			tm += day[i];
-		}
-		int today = (tm+d-1)%7;
+		int t = sc.nextInt();
+		int d[][] = new int[15][16];
 		
-		System.out.println(Day_Week[today]);
+		for(int i=0; i<=14; i++) {
+			d[i][1] = 1;
+			d[0][i+1] = i+1; 
+		}
+		
+		while(t-- > 0) {
+			int k = sc.nextInt();
+			int n = sc.nextInt();
+			for(int i=1; i<=k; i++) {
+				for(int j=1; j<=n; j++) {
+					d[i][j] = d[i][j-1] + d[i-1][j];
+				}
+			}
+			System.out.println(d[k][n]);
+		}
 	}
 }
